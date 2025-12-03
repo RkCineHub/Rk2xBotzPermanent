@@ -236,7 +236,8 @@ Nᴀᴍᴇ : {}
 
 Mᴇꜱꜱᴀɢᴇ : <b>{}</b>"""
     
-    CAPTION = """⚡<b>File uploaded by [Rk2xBotz™](https://t.me/rk2xbotz)</b>⚡
+    CAPTION = """<b><u>⚠️DELETING IN 5minutes⚠️ғᴏʀᴡᴀʀᴅ ᴀɴᴅ sᴛᴀʀᴛ ᴅᴏᴡɴʟᴏᴀᴅɪɴɢ ᴛʜᴇʀᴇ.</u></b>
+    ⚡<b>File uploaded by [Rk2xBotz™](https://t.me/rk2xbotz)</b>⚡
 
 𝙁𝙞𝙡𝙚 𝙉𝙖𝙢𝙚:<code><a>{file_name}</a></code>
 
