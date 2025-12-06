@@ -3,7 +3,7 @@ class script(object):
 
 <b>ʜᴇʏ {}, {}</b>
 
-<b>🤖 ɪ ᴀᴍ <a href=https://t.me/{}>{}</a>, ɪᴍ ⚡️ ᴘᴏᴡᴇʀғᴜʟ ᴀᴜᴛᴏ-ғɪʟᴛᴇʀ ʙᴏᴛ...
+<b>🤖 ɪ ᴀᴍ <a href=https://t.me/{}>{}</a>, ⚡️ ᴘᴏᴡᴇʀғᴜʟ ᴀᴜᴛᴏ-ғɪʟᴛᴇʀ ʙᴏᴛ...
 😎 ʏᴏᴜ ᴄᴀɴ ᴜsᴇ ᴍᴇ ᴀs ᴀ ᴀᴜᴛᴏ-ғɪʟᴛᴇʀ ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ ....
 ɪᴛs ᴇᴀsʏ ᴛᴏ ᴜsᴇ ᴍᴇ: ᴊᴜsᴛ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ ᴀs ᴀᴅᴍɪɴ, ᴛʜᴀᴛs ᴀʟʟ, ɪ ᴡɪʟʟ ᴘʀᴏᴠɪᴅᴇ ᴍᴏᴠɪᴇs ᴛʜᴇʀᴇ...😎
 
@@ -17,7 +17,7 @@ class script(object):
 
 <b>ʜᴇʏ {},</b>
 
-<b>🤖 ɪ ᴀᴍ <a href=https://t.me/{}>{}</a>, ɪᴍ ⚡️ ᴘᴏᴡᴇʀғᴜʟ ᴀᴜᴛᴏ-ғɪʟᴛᴇʀ ʙᴏᴛ...
+<b>🤖 ɪ ᴀᴍ <a href=https://t.me/{}>{}</a>, ⚡️ ᴘᴏᴡᴇʀғᴜʟ ᴀᴜᴛᴏ-ғɪʟᴛᴇʀ ʙᴏᴛ...
 😎 ʏᴏᴜ ᴄᴀɴ ᴜsᴇ ᴍᴇ ᴀs ᴀ ᴀᴜᴛᴏ-ғɪʟᴛᴇʀ ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ ....
 ɪᴛs ᴇᴀsʏ ᴛᴏ ᴜsᴇ ᴍᴇ: ᴊᴜsᴛ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ ᴀs ᴀᴅᴍɪɴ, ᴛʜᴀᴛs ᴀʟʟ, ɪ ᴡɪʟʟ ᴘʀᴏᴠɪᴅᴇ ᴍᴏᴠɪᴇs ᴛʜᴇʀᴇ...😎
 
@@ -243,9 +243,9 @@ Mᴇꜱꜱᴀɢᴇ : <b>{}</b>"""
 
 <b>📢 Latest Uploads:</b> <b><a href="https://t.me/+q4_4N_gRvfo4OGM1">Rk2xBotzu</a></b>
 <b>🤖 Bot Updates:</b> <b><a href="https://t.me/Rk2xBotz">Rk2xBotz</a></b>
-<blockquote>𝙐𝙨𝙚 𝙑𝙇𝘾 𝙋𝙡𝙖𝙮𝙚𝙧 / 𝙓𝙋𝙡𝙖𝙮𝙚𝙧 / 𝙈𝙓 𝙋𝙡𝙖𝙮𝙚𝙧 𝙏𝙤 𝙒𝙖𝙩𝙘𝙝 𝙏𝙝𝙞𝙨 𝙑𝙞𝙙𝙚𝙤 𝙁𝙞𝙡𝙚</blockquote>"""
+<blockquote><u>𝙐𝙨𝙚 𝙑𝙇𝘾 𝙋𝙡𝙖𝙮𝙚𝙧 / 𝙓𝙋𝙡𝙖𝙮𝙚𝙧 / 𝙈𝙓 𝙋𝙡𝙖𝙮𝙚𝙧 𝙏𝙤 𝙒𝙖𝙩𝙘𝙝 𝙏𝙝𝙞𝙨 𝙑𝙞𝙙𝙚𝙤 𝙁𝙞𝙡𝙚</u></blockquote>"""
     
-    MOVIE_UPDATE_NOTIFY_TXT = """<blockquote><b>💯#NEW_FILE_ADDED ✅</b></blockquote>
+    MOVIE_UPDATE_NOTIFY_TXT = """<blockquote><b><u>💯#NEW_FILE_ADDED ✅</u></b></blockquote>
 
 🫥 <code>{filename}</code>  ⿻ |⭐ <b><a href="{imdb_url}">ɪᴍᴅʙ ɪɴғᴏ</a></b>
 ━━━━━━━━━━━━━━━━━━━━
@@ -256,7 +256,7 @@ Mᴇꜱꜱᴀɢᴇ : <b>{}</b>"""
 ➥🎞️ <b>ʀᴀᴛɪɴɢ  : {rating} / 10</b>
 {episodes}
 ━━━━━━━━━━━━━━━━━━━━
-<blockquote><b>Jᴏɪɴ Oғғɪᴄɪᴀʟ•<a href="https://t.me/Rk2x_Request">Rᴋ2x Bᴏᴛᴢ</a></b></blockquote>"""
+<blockquote><u><b>Jᴏɪɴ Oғғɪᴄɪᴀʟ•<a href="https://t.me/Rk2x_Request">Rᴋ2x Bᴏᴛᴢ</a></b></u></blockquote>"""
 
 
     IMDB_TEMPLATE_TXT = """<b><a href={url}>{title} (<a href={url}/releaseinfo>{year}</a>)
