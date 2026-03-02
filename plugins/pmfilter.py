@@ -25,6 +25,9 @@ lock = asyncio.Lock()
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.ERROR)
 
+import os
+req_channel = int(os.environ.get('REQ_CHANNEL', -1003731464929))
+ 
 tracemalloc.start()
 
 
@@ -376,6 +379,159 @@ async def advantage_spoll_choker(bot, query):
         k = await query.message.edit(script.MVE_NT_FND, reply_markup=btn)
         await asyncio.sleep(10)
         await k.delete()
+@Client.on_callback_query(filters.regex(r"action_(\w+)_(\d+)\|(.+)"))
+async def handle_actions(client, callback_query):
+    action, user_id, search = re.match(r"action_(\w+)_(\d+)\|(.+)", callback_query.data).groups()
+    user_id = int(user_id)
+
+    try:
+        user = await client.get_users(user_id)
+        search_encoded = search.replace(" ", "+")
+        user_mention = f"<b>👤 Hey {user.first_name}!</b>"
+        search_line = f"🔍 You searched for: <code>{search}</code>\n\n"
+
+        if action == "uploaded":
+            message_text = (
+    "✅ <b>ʏᴏᴜʀ ʀᴇǫᴜᴇsᴛᴇᴅ ᴄᴏɴᴛᴇɴᴛ ʜᴀs ʙᴇᴇɴ ᴜᴘʟᴏᴀᴅᴇᴅ.</b>\n"
+    "✅ <b>आपका अनुरोधित कंटेंट अपलोड कर दिया गया है।</b>\n\n"
+    
+    "📢 <i>ᴄʜᴇᴄᴋ ᴏᴜʀ ᴄʜᴀɴɴᴇʟ/ɢʀᴏᴜᴘ ᴛᴏ ɢᴇᴛ ɪᴛ.ᴊᴏɪɴ ʙᴇʟᴏᴡ ɪғ ʏᴏᴜ ʜᴀᴠᴇɴ'ᴛ ʏᴇᴛ.</i>\n"
+    "📢 <i>कंटेंट पाने के लिए हमारे चैनल/ग्रुप में देखें। जॉइन नहीं किया है तो नीचे से जॉइन करें।</i>"
+            )
+            keyboard = InlineKeyboardMarkup(
+                [[InlineKeyboardButton("🔍sᴇᴀʀᴄʜ ʜᴇʀᴇ🔎", url=f"https://t.me/Rk2x_Request")]]
+            )
+            await client.send_photo(
+                chat_id=user_id,
+                photo="https://graph.org/file/444b6cbb77bbbabf8fb2d-4a72f06a01d54e8167.jpg",
+                caption=f"{user_mention}\n{search_line}{message_text}",
+                reply_markup=keyboard
+            )
+        elif action == "spellcheck":
+            message_text = (
+    "❌ <b>ᴛʜᴇʀᴇ ɪs ᴀ sᴘᴇʟʟɪɴɢ ᴍɪsᴛᴀᴋᴇ ɪɴ ʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ.</b>\n"
+    "🔎 <i>ᴘʟᴇᴀsᴇ ᴜsᴇ ᴛʜᴇ ᴄᴏʀʀᴇᴄᴛ ᴍᴏᴠɪᴇs/sᴇʀɪᴇs ɴᴀᴍᴇ ᴏʀ ᴄʜᴇᴄᴋ ɪᴛ ᴏɴ 𝐆𝐨𝐨𝐠𝐥𝐞 ʙᴇʟᴏᴡ.</i>\n\n"
+    
+    "❌ <b>आपकी रिक्वेस्ट में स्पेलिंग की गलती है।</b>\n"
+    "🔎 <i>कृपया सही मूवी/सीरीज़ का नाम लिखें या नीचे दिए गए बटन से 𝐆𝐨𝐨𝐠𝐥𝐞 पर चेक करें।</i>"
+            )
+            keyboard = InlineKeyboardMarkup(
+                [[InlineKeyboardButton("✏️ Cʜᴇᴄᴋ Sᴘᴇʟʟɪɴɢ ᴏɴ Gᴏᴏɢʟᴇ 🔍", url=f"https://www.google.com/search?q={search_encoded}")]]
+            )
+            await client.send_photo(
+                chat_id=user_id,
+                photo="https://graph.org/file/f32cbe358636a089c2174-f89615970cecb7d45f.jpg",
+                caption=f"{user_mention}\n{search_line}{message_text}",
+                reply_markup=keyboard
+            )
+
+        elif action == "notreleased":
+            message_text = (
+    "⏳ <b>ᴛʜᴇ ᴄᴏɴᴛᴇɴᴛ ʏᴏᴜ ʀᴇǫᴜᴇsᴛᴇᴅ ʜᴀs ɴᴏᴛ ʙᴇᴇɴ ʀᴇʟᴇᴀsᴇᴅ ʏᴇᴛ.</b>\n"
+    "📢 <i>ɪᴛ ᴡɪʟʟ ʙᴇ ᴀᴠᴀɪʟᴀʙʟᴇ ᴀғᴛᴇʀ ʀᴇʟᴇᴀsᴇ. ᴄʜᴇᴄᴋ ᴛʜᴇ ʀᴇʟᴇᴀsᴇ ᴅᴀᴛᴇ ʙᴇʟᴏᴡ.</i>\n\n"
+    
+    "⏳ <b>आपके द्वारा अनुरोधित कंटेंट अभी तक रिलीज़ नहीं हुआ है।</b>\n"
+    "📢 <i>यह रिलीज़ के बाद उपलब्ध होगा। नीचे दिए गए बटन से रिलीज़ डेट चेक करें।</i>"
+            )
+            keyboard = InlineKeyboardMarkup(
+                [[InlineKeyboardButton("🗓️ Cʜᴇᴄᴋ ʀᴇʟᴇᴀsᴇ ᴅᴀᴛᴇ 🔍", url=f"https://www.google.com/search?q={search_encoded}+release+date")]]
+            )
+            await client.send_photo(
+                chat_id=user_id,
+                photo="https://graph.org/file/cdff24f827e8d6ba40afd-2073a01355b93748dc.jpg",
+                caption=f"{user_mention}\n{search_line}{message_text}",
+                reply_markup=keyboard
+            )
+
+        elif action == "processing":
+            message_text = (
+    "🛠️ <b>ʏᴏᴜʀ ʀᴇǫᴜᴇsᴛ ɪs ᴄᴜʀʀᴇɴᴛʟʏ ʙᴇɪɴɢ ᴘʀᴏᴄᴇssᴇᴅ.</b>\n"
+    "📢 <i>ɪᴛ ɪs ʙᴇɪɴɢ ᴜᴘʟᴏᴀᴅᴇᴅ. ᴘʟᴇᴀsᴇ ᴡᴀɪᴛ, ʏᴏᴜ ᴡɪʟʟ ʙᴇ ɴᴏᴛɪғɪᴇᴅ sᴏᴏɴ.</i>\n\n"
+    
+    "🛠️ <b>आपका अनुरोधित कंटेंट फिलहाल प्रोसेस हो रहा है।</b>\n"
+    "📢 <i>यह अभी अपलोड हो रहा है। कृपया थोड़ी देर प्रतीक्षा करें, पूरा होने पर आपको सूचना मिलेगी।</i>"
+            )
+            final_msg = f"{user_mention}\n{search_line}{message_text}"
+            await client.send_message(user_id, final_msg)
+
+        elif action == "typeinenglish":
+            message_text = (
+    "✍️ <b>ᴛʜᴇ ᴄᴏɴᴛᴇɴᴛ ɪs ᴀᴠᴀɪʟᴀʙʟᴇ, ʙᴜᴛ ᴛʏᴘᴇ ᴛʜᴇ ɴᴀᴍᴇ ɪɴ ᴇɴɢʟɪsʜ.</b>\n"
+    "📢 <i>ᴜsᴇ ᴛʜᴇ ᴄᴏʀʀᴇᴄᴛ ᴇɴɢʟɪsʜ sᴘᴇʟʟɪɴɢ ᴏʀ ᴄʜᴇᴄᴋ ɪᴛ ʙᴇʟᴏᴡ.</i>\n\n"
+    
+    "✍️ <b>कंटेंट उपलब्ध है, लेकिन नाम अंग्रेज़ी में टाइप करें।</b>\n"
+    "📢 <i>सही अंग्रेज़ी स्पेलिंग लिखें या नीचे दिए गए बटन से Google पर चेक करें।</i>"
+            )
+            keyboard = InlineKeyboardMarkup(
+                [[InlineKeyboardButton("🔍 Cʜᴇᴄᴋ ᴛʜᴇ Eɴɢʟɪsʜ ɴᴀᴍᴇ ᴏɴ Gᴏᴏɢʟᴇ ✏️", url=f"https://www.google.com/search?q={search_encoded}")]]
+            )
+            await client.send_photo(
+                chat_id=user_id,
+                photo="https://graph.org/file/2dbe36c1633429a865a3b-25e8d0278975d02fd2.jpg",
+                caption=f"{user_mention}\n{search_line}{message_text}",
+                reply_markup=keyboard
+            )
+
+        elif action == "notavailable":
+            message_text = (
+    "❌ <b>ʀᴇǫᴜᴇsᴛᴇᴅ ᴄᴏɴᴛᴇɴᴛ ɪs ɴᴏᴛ ᴀᴠᴀɪʟᴀʙʟᴇ ʀɪɢʜᴛ ɴᴏᴡ.</b>\n"
+    "📢 <i>ᴛʀʏ ᴀɢᴀɪɴ ʟᴀᴛᴇʀ ᴏʀ ᴄʜᴇᴄᴋ ᴀɴᴏᴛʜᴇʀ ᴄᴏɴᴛᴇɴᴛ.</i>\n\n"
+    
+    "❌ <b>अनुरोधित कंटेंट इस समय उपलब्ध नहीं है।</b>\n"
+    "📢 <i>कृपया बाद में फिर से चेक करें या दूसरा कंटेंट ट्राई करें।</i>"
+            )
+            final_msg = f"{user_mention}\n{search_line}{message_text}"
+            await client.send_message(user_id, final_msg)
+
+        elif action == "contact":  
+            message_text = (
+    "📞 <b>ɴᴇᴇᴅ ʜᴇʟᴘ? | सहायता चाहिए?</b>\n\n"
+    "📩 <i>ɪꜰ ʏᴏᴜ'ʀᴇ ꜰᴀᴄɪɴɢ ᴀɴʏ ɪssᴜᴇ, ᴄᴏɴᴛᴀᴄᴛ ᴛʜᴇ ᴀᴅᴍɪɴ.</i>\n"
+    "📩 <i><b>यदि कोई समस्या हो, तो एडमिन से संपर्क करें।</b></i>\n\n"
+    "⚡ <i>ᴡᴇ'ʀᴇ ʜᴇʀᴇ ᴛᴏ ʜᴇʟᴘ ʏᴏᴜ ᴀꜱ ꜱᴏᴏɴ ᴀꜱ ᴘᴏꜱꜱɪʙʟᴇ.</i>\n"
+    "⚡ <i><b>हम जल्द से जल्द आपकी मदद करेंगे।</b></i>\n\n"
+    "👇 <i>ᴄʟɪᴄᴋ ᴛʜᴇ ʙᴜᴛᴛᴏɴ ʙᴇʟᴏᴡ.</i>\n"
+    "👇 <i>नीचे दिए गए बटन पर क्लिक करें।</i>"
+            )
+            keyboard = InlineKeyboardMarkup(  
+                [[InlineKeyboardButton("💬 Cᴏɴᴛᴀᴄᴛ ᴀᴅᴍɪɴ 📞", url=f"https://t.me/NotRk2xBot")]]  
+            )  
+            await client.send_photo(  
+                chat_id=user_id,  
+                photo="https://graph.org/file/99e61220eeba39912dd4e-01bd19f51af4ca62fb.jpg",  
+                caption=f"{user_mention}\n{search_line}{message_text}",  
+                reply_markup=keyboard  
+            )  
+
+        elif action == "premium":  
+            message_text = (
+    "👑✨ <b>ᴇxᴄʟᴜsɪᴠᴇ ᴘʀᴇᴍɪᴜᴍ ᴀᴄᴄᴇꜱꜱ</b> ✨👑\n\n"
+    "💎 <i>ᴛʜɪꜱ ᴄᴏɴᴛᴇɴᴛ ɪꜱ ʀᴇꜱᴇʀᴠᴇᴅ ꜰᴏʀ ᴘʀᴇᴍɪᴜᴍ ᴜꜱᴇʀꜱ ᴏɴʟʏ.</i>\n"
+    "🚀 <i>ᴜɴʟᴏᴄᴋ ᴀʟʟ ᴠɪᴘ ꜰᴇᴀᴛᴜʀᴇꜱ ᴀɴᴅ ᴇɴᴊᴏʏ ᴀ ꜱᴇᴀᴍʟᴇꜱꜱ ᴇxᴘᴇʀɪᴇɴᴄᴇ.</i>\n\n"
+    
+    "👑 <b>यह कंटेंट केवल प्रीमियम यूज़र्स के लिए सुरक्षित है।</b>\n"
+    "💎 <i>सभी वीआईपी फीचर्स का लाभ लेने के लिए प्रीमियम एक्सेस प्राप्त करें।</i>"
+            )
+            keyboard = InlineKeyboardMarkup(  
+                [[InlineKeyboardButton("💎 Gᴇᴛ Pʀᴇᴍɪᴜᴍ ᴀᴄᴄᴇss 🚀", callback_data="premium2")]]  
+            )  
+            await client.send_photo(  
+                chat_id=user_id,  
+                photo="https://graph.org/file/57a50bbe4ed834e0be351-a64cac57fafba778ff.jpg",  
+                caption=f"{user_mention}\n{search_line}{message_text}",  
+                reply_markup=keyboard  
+            )  
+
+        else:
+            message_text = "⚠️ Invalid action."
+            final_msg = f"{user_mention}\n{search_line}{message_text}"
+            await client.send_message(user_id, final_msg)
+
+        await callback_query.answer("✅ Message sent to the user.", show_alert=True)
+
+    except Exception:
+        await callback_query.answer("❗ The user has not started the bot yet!", show_alert=True)
+            
 
 # Qualities
 @Client.on_callback_query(filters.regex(r"^qualities#"))
@@ -1795,17 +1951,48 @@ async def auto_filter(client, msg, spoll=False):
                             await ai_sts.delete()
                             return await auto_filter(client, message)
                         await ai_sts.delete()
-                        result = await advantage_spell_chok(client, message)
-                        return result
-                    else:
-                        try:
-                            if m:
-                                await m.delete()
-                        except Exception:
-                            pass
-                        result = await advantage_spell_chok(client, message)
-                        return result
-            else:
+                    # অ্যাডভান্স চেকিং
+                    found = await advantage_spell_chok(client, message)
+                    if found:
+                        return
+
+                # অ্যাডভান্স চেকিং না পেলে, চ্যানেলে পোস্ট করা হবে
+                await client.send_message(  
+    req_channel,
+    f"✨ **🚫 ɴᴏ ꜰɪʟᴇ ʀᴇǫᴜᴇsᴛᴇᴅ 🚫** ✨\n\n"
+    f"🎬 **ꜰɪʟᴇ ɴᴀᴍᴇ:** `{search}`\n"
+    f"🆔 **ᴜsᴇʀ ɪᴅ:** [ᴠɪᴇᴡ ᴩʀᴏꜰɪʟᴇ](tg://openmessage?user_id={message.from_user.id})\n"
+    f"👤 **ʀᴇǫᴜᴇsᴛᴇᴅ ʙʏ:** `{message.from_user.first_name}`\n"
+    f"⏰ **ʀᴇǫᴜᴇsᴛᴇᴅ ᴏɴ:** `{curr_time.strftime('%d %B %Y, %I:%M %p')}`\n"
+    f"💌 **sᴛᴀᴛᴜs:** ᴩᴇɴᴅɪɴɢ 🔄\n", 
+    reply_markup = InlineKeyboardMarkup([
+    # ✅ বড় বোতাম - Uploaded Done
+    [InlineKeyboardButton("✅ ᴜᴩʟᴏᴀᴅᴇᴅ ᴅᴏɴᴇ ✅", callback_data=f"action_uploaded_{message.from_user.id}|{search.strip()}")],
+
+    # ❌ পাশাপাশি দুইটা ছোট বোতাম - Spelling Check & Not Released
+    [
+        InlineKeyboardButton("❌ ᴄʜᴇᴄᴋ sᴩᴇʟʟɪɴɢ", callback_data=f"action_spellcheck_{message.from_user.id}|{search.strip()}"),
+        InlineKeyboardButton("⏳ ɴᴏᴛ ʀᴇʟᴇᴀsᴇᴅ ʏᴇᴛ", callback_data=f"action_notreleased_{message.from_user.id}|{search.strip()}")
+    ],
+
+    # 🔎 বড় বোতাম - Google Search
+    [InlineKeyboardButton("🔎 sᴇᴀʀᴄʜ ᴀɴᴅ ᴄʜᴇᴄᴋ ᴏɴ ɢᴏᴏɢʟᴇ 🔍", url=f"https://www.google.com/search?q={search.replace(' ', '+')}")],
+    # ⚙️ পাশাপাশি দুইটা বড় বোতাম - Processing & Type in English
+    [
+        InlineKeyboardButton("🛠️ ᴜɴᴅᴇʀ ᴩʀᴏᴄᴇssɪɴɢ", callback_data=f"action_processing_{message.from_user.id}|{search.strip()}"),
+        InlineKeyboardButton("🔤 ᴛʏᴩᴇ ɪɴ ᴇɴɢʟɪsʜ", callback_data=f"action_typeinenglish_{message.from_user.id}|{search.strip()}")
+    ],
+    # 📞 বড় বোতাম - Contact for Problem
+    [InlineKeyboardButton("📞 ᴄᴏɴᴛᴀᴄᴛ ꜰᴏʀ ᴀɴʏ ᴘʀᴏʙʟᴇᴍ 💬", callback_data=f"action_contact_{message.from_user.id}|{search.strip()}")],        
+    # ❗ পাশাপাশি দুইটা - Not Available & Premium Required
+    [
+        InlineKeyboardButton("🚫 ɴᴏᴛ ᴀᴠᴀɪʟᴀʙʟᴇ", callback_data=f"action_notavailable_{message.from_user.id}|{search.strip()}"),
+        InlineKeyboardButton("💎 ᴩʀᴇᴍɪᴜᴍ ʀᴇǫᴜɪʀᴇᴅ", callback_data=f"action_premium_{message.from_user.id}|{search.strip()}")
+    ],
+    # 💥 বড় বোতাম - Close
+    [InlineKeyboardButton("💥 ᴄʟᴏsᴇ 💥", callback_data="close_data")]
+])
+                )
                 return
         else:
             # spoll branch
